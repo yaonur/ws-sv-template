@@ -1,6 +1,6 @@
 <script lang="ts">
-    import {sum} from '$lib/pkg/greet'
+    import {sum, greet} from '$lib/pkg/greet'
     
-    
+    greet('World')
 </script>
 <p>{sum(1,3)}</p>
