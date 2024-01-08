@@ -6,6 +6,10 @@
 	import { setLanguageTag, sourceLanguageTag, type AvailableLanguageTag } from '$paraglide/runtime';
 	import { availableLanguageTags } from '$paraglide/runtime';
 	import { route } from '$lib/i18n-routing';
+	import { invalidate } from '$app/navigation'
+	import { onMount } from 'svelte'
+
+	export let data
 
 	$: lang = ($page.params.lang as AvailableLanguageTag) ?? sourceLanguageTag;
 
@@ -15,6 +19,18 @@
 		console.log("path name wrong");
 		goto(`/en`);
 	}
+	let { supabase, session } = data
+	$: ({ supabase, session } = data)
+
+	onMount(() => {
+		const { data } = supabase.auth.onAuthStateChange((event, _session) => {
+			if (_session?.expires_at !== session?.expires_at) {
+				invalidate('supabase:auth')
+			}
+		})
+
+		return () => data.subscription.unsubscribe()
+	})
 </script>
 
 {#each availableLanguageTags as lang, i}
