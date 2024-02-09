@@ -58,6 +58,7 @@
     "@storybook/addon-svelte-csf": "^4.0.13",
     "@supabase/auth-helpers-sveltekit": "^0.10.7",
     "@supabase/supabase-js": "^2.39.2",
+    "@tailwindcss/container-queries": "^0.1.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "l2": "link:",
